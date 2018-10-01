@@ -1,17 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <Title msg="To Do List"/>
+      <List
+        :items="todos"
+        @update-todo="updateTodo"
+        />
+      <Form @add-todo="addTodo"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Title from './components/Title.vue'
+import List from './components/List.vue'
+import Form from './components/Form.vue'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      todos: [{
+        text: 'Cook dinner',
+        done: false
+      }, {
+        text: 'Wash clothes',
+        done: true
+      }]
+    }
+  },
+  methods: {
+    updateTodo(i){
+      this.todos[i].done = !this.todos[i].done;
+    },
+    addTodo(text) {
+      this.todos.push({
+        text,
+        done: false
+      })
+    }
+  },
   components: {
-    HelloWorld
+    Title,
+    List,
+    Form
   }
 }
 </script>
